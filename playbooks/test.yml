@@ -1,0 +1,21 @@
+---
+- name: install software
+  hosts: db_server
+  tasks:
+  
+  - name: create directory on target server
+    ansible.windows.win_file:
+      path: C:\Temp
+      state: directory  
+    
+  - name: copy file from lnx to win
+    ansible.windows.win_copy: 
+      src: /home/martin/windowsmachine/scripts/install.ps1
+      dest: C:\temp\
+    
+  - name: install ps on win
+    ansible.windows.win_shell: C:\temp\install.ps1
+    
+  - name: restart target server
+    ansible.windows.win_reboot:
+    
